@@ -5,20 +5,30 @@ let jsonInfo = await res.json();
 console.log(jsonInfo)
 //setup x/y axis for bar chart
 let labels = [];
-let heightData = [];
+let weightData = [];
 
 for(let info of jsonInfo) {
     //add data to chart
     if(info.draft_year === "2017" && info.draft_round === "1") {
         labels.push(info.name)
-        heightData.push(info.weight)
+        weightData.push(info.weight)
     }
 }
+//get avg of data(weight)
+console.log(weightData)
+let sum = 0
+
+for(let i = 0 ; i < weightData.length ; i++) {
+    sum += parseInt(weightData[i])
+}
+
+let avgWeight = sum/weightData.length
+console.log(avgWeight)
 const data = {
     labels: labels,
     datasets: [{
-        label: 'My First Dataset',
-        data: heightData,
+        label: `All these players have and average weight of ${Math.round(avgWeight)} lbs.`,
+        data: weightData,
         backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
